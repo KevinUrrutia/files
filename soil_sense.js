@@ -56,17 +56,18 @@ noble.on('discover', (peripheral) => {
 function GET_TIME_FUNCTION() {
 	console.log('time function');
 	var current_time = new Date();
-	current_time = JSON.stringify(current_time);
+	current_time = current_time.toLocaleString();
+	console.log(current_time + "\n");
 
 	time = Buffer.from(current_time, 'utf-8');
-	test = Buffer.from("Hello",'utf-8');
 
-	console.log(test);
-
-	GET_TIME_CHAR.write(test, true, function(error) {
+		GET_TIME_CHAR.write(time, true, function(error) {
 		if(!error){
+		// GET_TIME_CHAR.on('write', function(data, isNotification) {
+		// 	})
 			console.log("Write is successful\n");
 		}
 		else {console.log("Write is Unsuccessful\n");}
-	}.bind(this));
+		}.bind(this));
+
 }
