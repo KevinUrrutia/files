@@ -77,7 +77,8 @@ function SCAN_PARAMETERS_FUNCTION() {
 
 	 time = Buffer.from(current_time, 'utf-8');
 
-	 File_Name = Buffer.alloc(12); //allocates a buffer size 8, this is only for test and needs to be adjusted
+	 File_Name = Buffer.alloc(12); //allocates a buffer size 12, this is only for test and needs to be adjusted
+	 char_Buffer = Buffer.alloc(1); //allocates a buffer size of 1 to read one character at a time 
 
 		GET_TIME_CHAR.write(time, true, function(error) {
 		if(!error){
@@ -92,25 +93,24 @@ function SCAN_PARAMETERS_FUNCTION() {
 			if(!error){
 		// GET_TIME_CHAR.on('write', function(data, isNotification) {
 		// 	})
-			console.log("Write is successful\n");
+			console.log("read is successful\n");
 		}
-		else {console.log("Write is Unsuccessful\n");}
+		else {console.log("read is Unsuccessful\n");}
 		}.bind(this);
 
-		 // Do I need to turn this into char instead of HEX or will the computer do this
+		 while(charBuffer != 0x03){ //0x03 is the end of file character that will be sent over manually at the end of the file read
+		 	charBuffer FILE_DATA_CHAR.read(){
+		 		if(!error){
+				// GET_TIME_CHAR.on('write', function(data, isNotification) {
+				// 	})
+				console.log("read is successful\n");
+				}
+				else {console.log("read is Unsuccessful\n");}
+				}.bind(this);
 
-
-		//How do I know when to stop reading the file length? Is there a way to know that I reached the end of the file, like some sort of key char
-
-		//pseudo code
-		//while(chabuffer != specialKey) => only works if the buffer is onlt 8 bits instead of a larger buffer
-		//charBuffer = FILE_DATA.read();
-		//fs.writeFile(File_Name, charBuffer, 'ascii', (err) =>{
-		//	if(err) throw err;
-		//  console.log("Write Success");
-		//});
-		//
-
-		fs.writeFile(File_Name, )
-
+			fs.writeFile(File_Name, charBuffer, 'ascii', (err)=>{
+				if(err) throw err;
+				console.log("Write Success");
+			});
+		 }
 }
